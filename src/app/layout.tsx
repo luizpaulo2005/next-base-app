@@ -2,6 +2,8 @@ import './globals.css'
 
 import type { Metadata } from 'next'
 
+import { Toaster } from '@/components/ui/sonner'
+import { ProgressProvider } from '@/providers/progress'
 import { ThemeProvider } from '@/providers/theme'
 
 export const metadata: Metadata = {
@@ -15,10 +17,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+          <ProgressProvider>
+            <Toaster richColors />
+            {children}
+          </ProgressProvider>
         </ThemeProvider>
       </body>
     </html>
