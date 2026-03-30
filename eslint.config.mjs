@@ -2,14 +2,13 @@ import eslint from '@eslint/js'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import nextVitals from 'eslint-config-next/core-web-vitals'
 import nextTs from 'eslint-config-next/typescript'
+import importPlugin from 'eslint-plugin-import'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import globals from 'globals'
 import neostandard, { resolveIgnoresFromGitignore } from 'neostandard'
-import tseslint from 'typescript-eslint'
 
 const eslintConfig = defineConfig([
   globalIgnores([
-    // Default ignores of eslint-config-next:
     '.next/**',
     'out/**',
     'build/**',
@@ -19,12 +18,12 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   eslint.configs.recommended,
-  ...tseslint.configs.recommended,
   ...neostandard({
-    ignores: false, // Already handled globally
+    ignores: false,
   }),
   {
     plugins: {
+      import: importPlugin,
       'simple-import-sort': simpleImportSort,
     },
     rules: {
@@ -48,6 +47,7 @@ const eslintConfig = defineConfig([
     languageOptions: {
       globals: {
         ...globals.browser,
+        React: 'readonly',
       },
       parserOptions: {
         projectService: {
